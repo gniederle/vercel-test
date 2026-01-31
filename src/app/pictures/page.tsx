@@ -16,11 +16,11 @@ export default function Home() {
 		setItems(data.data);
 	};
 
-	const handleChange = (e) => {
-		setForm({ ...form, [e.target.name]: e.target.value });
+	const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+		setForm({ ...form, [e.currentTarget.name]: e.currentTarget.value });
 	};
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		try {
 			await fetch('/api/items', {
