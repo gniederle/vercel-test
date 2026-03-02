@@ -3,17 +3,17 @@
 import { useState, useEffect } from 'react';
 
 export default function Home() {
-	const [items, setItems] = useState([]);
-	const [form, setForm] = useState({ name: '', description: '' });
+	const [pictures, setPictures] = useState([]);
+	const [form, setForm] = useState({ description: '', path: '' });
 
 	useEffect(() => {
-		fetchItems();
+		fetchPictures();
 	}, []);
 
-	const fetchItems = async () => {
-		const res = await fetch('/api/items');
+	const fetchPictures = async () => {
+		const res = await fetch('/api/pictures');
 		const data = await res.json();
-		setItems(data.data);
+		setPictures(data.data);
 	};
 
 	const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -23,15 +23,15 @@ export default function Home() {
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		try {
-			await fetch('/api/items', {
+			await fetch('/api/pictures', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify(form)
 			});
-			fetchItems();
-			setForm({ name: '', description: '' });
+			// fetchPictures();
+			// setForm({ description: '', path: '' });
 		} catch (error) {
 			console.log(error);
 		}
@@ -39,21 +39,21 @@ export default function Home() {
 
 	return (
 		<div>
-			<h1>Items teste10</h1>
+			<h1>Pictures</h1>
 			<form onSubmit={handleSubmit}>
 				<input
-					name="name"
-					placeholder="Item name"
-					value={form.name}
-					onChange={handleChange}
-				/>
-				<input
 					name="description"
-					placeholder="Item description"
+					placeholder="Picture name"
 					value={form.description}
 					onChange={handleChange}
 				/>
-				<button type="submit">Add Item</button>
+				<input
+					name="path"
+					placeholder="Picture path"
+					value={form.path}
+					onChange={handleChange}
+				/>
+				<button type="submit">Add Picture</button>
 			</form>
 		</div>
 	);

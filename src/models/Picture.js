@@ -2,8 +2,7 @@ import mongoose from 'mongoose';
 
 const PictureSchema = new mongoose.Schema({
     spot: {
-        type: Number,
-        required: true
+        type: Number
     },
     description: String,
     path: {
